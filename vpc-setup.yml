@@ -63,7 +63,7 @@
         map_public: no
         resource_tags:
           Name: vprofile-privsub1
-        register: privsub1_out
+      register: privsub1_out
   
     - name: create Private Subnet 2 in Zone2
       ec2_vpc_subnet:
