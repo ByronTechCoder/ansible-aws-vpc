@@ -93,3 +93,11 @@
          "tag:Project": Vprofile
          "tag:Owner": DevOps Team
      register: bastion_out
+
+
+   -   name: Insert/Update "BastionSGId" in vars/vpc_output_vars
+       blockinfile: 
+        path: vars/vpc_output_vars
+        backup: yes
+        block: |
+          bastion_sg_id: "{{ bastion_sg.group_id }}"

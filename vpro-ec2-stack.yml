@@ -25,6 +25,41 @@
        dest: "./loginkey_vpro.pem"
        mode: '0600'
      when: keypair_out.changed
- 
+
+   - name: Create Security Group for Load Balancer
+     ec2_security_group:
+        name: vprofile-lb-sg
+        description: Security group for vprofile load balancer
+        vpc_id: "{{ vpcid }}"
+        region: "{{ region }}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: 0.0.0.0/0
+     register: lb_sg_out
+
+
+   - name: Create Security Group for Load Balancer
+     ec2_security_group:
+        name: vprofile-lb-sg
+        description: Security group for vprofile load balancer
+        vpc_id: "{{ vpcid }}"
+        region: "{{ region }}"
+        purge_rules: no
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            group_id: "{{ lb_sg_out.group_id }}"
+       
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            group_id: "{{ bastion_sg_out.group_id }}"
+            vpc_subnet_id: "{{ pub_subnet1_id }}"
+
+     register: lb_sg_out
+  
 
 
