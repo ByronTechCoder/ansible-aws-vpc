@@ -57,6 +57,7 @@
             from_port: 22
             to_port: 22
             group_id: "{{ bastion_sg_id }}"
+     register: vprofile_stack_sg_out
 
 
    - name: Update Security Group with its own sg id
@@ -68,6 +69,16 @@
         purge_rules: no
         rules:
           - proto: tcp
+            from_port: 3306
+            to_port: 3306
+            group_id: "{{ vprofile_stack_sg_out.group_id }}"
+          - proto: tcp
+            from_port: 5672
+            to_port: 5672
+            group_id: "{{ vprofile_stack_sg_out.group_id }}"
+          - proto: tcp
+            from_port: 11211
+            to_port: 11211
             group_id: "{{ vprofile_stack_sg_out.group_id }}"
 
   
