@@ -95,9 +95,9 @@
      register: bastion_out
 
 
-   -   name: Insert/Update "BastionSGId" in vars/vpc_output_vars
+   -   name: Insert/Update "BastionSGId" in vars/vpc-output_vars
        blockinfile: 
-        path: vars/vpc_output_vars
+        path: vars/vpc-output_vars
         backup: yes
         block: |
           bastion_sg_id: "{{ bastion_sg.group_id }}"
