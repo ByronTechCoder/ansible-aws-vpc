@@ -30,7 +30,7 @@
      amazon.aws.ec2_security_group:
         name: vprofile-lb-sg
         description: Security group for vprofile load balancer
-        vpc_id: "{{ vpcid }}"
+        vpc_id: "{{ vpc_id }}"
         region: "{{ region }}"
         rules:
           - proto: tcp
@@ -44,7 +44,7 @@
      amazon.aws.ec2_security_group:
         name: vprofile-stack-sg
         description: Security group for vprofile stack
-        vpc_id: "{{ vpcid }}"
+        vpc_id: "{{ vpc_id }}"
         region: "{{ region }}"
         purge_rules: no
         rules:
@@ -63,7 +63,7 @@
      amazon.aws.ec2_security_group:
         name: vprofile-stack-sg
         description: Security group for vprofile stack
-        vpc_id: "{{ vpcid }}"
+        vpc_id: "{{ vpc_id }}"
         region: "{{ region }}"
         purge_rules: no
         rules:
