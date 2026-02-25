@@ -155,6 +155,35 @@
         - pub_rt_out.route_table.id
         - nat_gw_out.nat_gateway_id
         - pub_rt_out.route_table.id
+  
+
+    - set_fact:
+        vpc_id: "{{ vpcout.vpc.id }}"
+        pub_subnet1_id: "{{ pubsub1_out.subnet.id }}"
+        pub_subnet2_id: "{{ pubsub2_out.subnet.id }}"
+        pub_subnet3_id: "{{ pubsub3_out.subnet.id }}"
+        priv_subnet1_id: "{{ privsub1_out.subnet.id }}"
+        priv_subnet2_id: "{{ privsub2_out.subnet.id }}"
+        priv_subnet3_id: "{{ privsub3_out.subnet.id }}"
+        igw_id: "{{ igw_out.gateway_id }}"
+        pub_rt_id: "{{ pub_rt_out.route_table.id }}"
+        nat_gw_id: "{{ nat_gw_out.nat_gateway_id }}"
+        chacheable: yes
+
+    - name: Create variables for vpc output
+      copy:
+        dest: "vars/vpc_output.yml"
+        content: |
+          vpc_id: "{{ vpc_id }}"
+          pub_subnet1_id: "{{ pub_subnet1_id }}"
+          pub_subnet2_id: "{{ pub_subnet2_id }}"
+          pub_subnet3_id: "{{ pub_subnet3_id }}"
+          priv_subnet1_id: "{{ priv_subnet1_id }}"
+          priv_subnet2_id: "{{ priv_subnet2_id }}"
+          priv_subnet3_id: "{{ priv_subnet3_id }}"
+          igw_id: "{{ igw_id }}"
+          pub_rt_id: "{{ pub_rt_id }}"
+          nat_gw_id: "{{ nat_gw_id }}"
 
 
 
