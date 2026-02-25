@@ -40,10 +40,10 @@
      register: lb_sg_out
 
 
-   - name: Create Security Group for Load Balancer
+   - name: Create Security Group for Vprofile stack
      ec2_security_group:
-        name: vprofile-lb-sg
-        description: Security group for vprofile load balancer
+        name: vprofile-stack-sg
+        description: Security group for vprofile stack
         vpc_id: "{{ vpcid }}"
         region: "{{ region }}"
         purge_rules: no
@@ -56,10 +56,20 @@
           - proto: tcp
             from_port: 22
             to_port: 22
-            group_id: "{{ bastion_sg_out.group_id }}"
-            vpc_subnet_id: "{{ pub_subnet1_id }}"
+            group_id: "{{ bastion_sg_id }}"
 
-     register: lb_sg_out
+
+   - name: Update Security Group with its own sg id
+     ec2_security_group:
+        name: vprofile-stack-sg
+        description: Security group for vprofile stack
+        vpc_id: "{{ vpcid }}"
+        region: "{{ region }}"
+        purge_rules: no
+        rules:
+          - proto: tcp
+            group_id: "{{ vprofile_stack_sg_out.group_id }}"
+
   
 
 

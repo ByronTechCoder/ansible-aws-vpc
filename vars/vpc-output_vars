@@ -9,3 +9,6 @@ priv_subnet3_id: "subnet-0e4011ea4c4c93711"
 igw_id: "igw-05473cc598f327125"
 pub_rt_id: "rtb-0e614554f97d40c53"
 nat_gw_id: "nat-00ffe4e4b0add6f5b"
+# BEGIN ANSIBLE MANAGED BLOCK
+bastion_sg_id: "sg-05e118d8ec900ac29"
+# END ANSIBLE MANAGED BLOCK
