@@ -205,6 +205,19 @@
             load_balancer_port: 80
             instance_port: 80
 
+    - name: Ensure provisioning directories exist
+      file:
+        path: provision-stack/group_vars
+        state: directory
+
+    - name: Ensure provisioning files exist
+      file:
+        path: "{{ item }}"
+        state: touch
+      loop:
+        - provision-stack/group_vars/hostip
+        - provision-stack/inventory-repo
+
     - name: Insert/Update host IPs in provision-stack/group_vars/hostip
       blockinfile:
         path: provision-stack/group_vars/hostip
