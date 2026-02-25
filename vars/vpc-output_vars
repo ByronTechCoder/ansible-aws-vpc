@@ -1,3 +1,4 @@
+region: "us-east-1"
 vpc_id: "vpc-0442b4ea73cd02710"
 pub_subnet1_id: "subnet-0c9cd59f60830dc65"
 pub_subnet2_id: "subnet-0ecec4eb2dd9fa723"

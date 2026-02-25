@@ -6,6 +6,25 @@
 
   tasks:
    - name: Import VPC Setup Variable
-     include_vars: vars/vpc_setup
+     include_vars: vars/vpc-output_vars
 
-  
+   - name: import ec2 instance variables
+     include_vars: vars/vprostacksetup
+
+
+   - name: Create keypair
+     ec2_key:
+       name: vprofile-key
+       region: "{{ region }}"
+       state: present
+     register: keypair_out
+
+   - name: save private key into loginkey_vpro.pem
+     copy:
+       content: "{{ keypair_out.key.private_key }}"
+       dest: "./loginkey_vpro.pem"
+       mode: '0600'
+     when: keypair_out.changed
+ 
+
+
