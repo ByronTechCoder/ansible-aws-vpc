@@ -184,7 +184,7 @@
 
     - debug:
       var: db01_out.instances[0].instance_id
-
+ 
     - name: Create/Update ELB
       local_action:
         module: ec2_elb_lb
