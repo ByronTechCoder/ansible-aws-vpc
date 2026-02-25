@@ -35,7 +35,7 @@
         region: "{{ region }}"
         az: "{{ zone2 }}"
         state: "{{ state }}"
-        cidr: "{{ PubSub2Cider }}"
+        cidr: "{{ PubSub2Cidr }}"
         map_public: yes
         resource_tags:
           Name: vprofile-pubsub2
@@ -154,9 +154,7 @@
         - igw_out.gateway_id
         - pub_rt_out.route_table.id
         - nat_gw_out.nat_gateway_id
-        - pub_rt_out.route_table.id
   
-
     - set_fact:
         vpc_id: "{{ vpcout.vpc.id }}"
         pub_subnet1_id: "{{ pubsub1_out.subnet.id }}"
@@ -170,7 +168,7 @@
         nat_gw_id: "{{ nat_gw_out.nat_gateway_id }}"
         chacheable: yes
 
-    - name: Create variables for vpc output
+        cacheable: yes
       copy:
         dest: "vars/vpc_output.yml"
         content: |
@@ -184,6 +182,23 @@
           igw_id: "{{ igw_id }}"
           pub_rt_id: "{{ pub_rt_id }}"
           nat_gw_id: "{{ nat_gw_id }}"
+  
 
+
+    - name: Create variables file for vpc output
+      copy:
+          dest: "vars/vpc_output_vars"
+          content: |
+            region: {{ region }}
+            vpcid: {{ vpc_id }}
+            pub_subnet1_id: {{ pub_subnet1_id }}
+            pub_subnet2_id: {{ pub_subnet2_id }}
+            pub_subnet3_id: {{ pub_subnet3_id }}
+            priv_subnet1_id: {{ priv_subnet1_id }}
+            priv_subnet2_id: {{ priv_subnet2_id }}
+            priv_subnet3_id: {{ priv_subnet3_id }}
+            igw_id: {{ igw_id }}
+            pub_rt_id: {{ pub_rt_id }}
+            nat_gw_id: {{ nat_gw_id }}
 
 
