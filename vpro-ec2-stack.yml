@@ -81,6 +81,111 @@
             to_port: 11211
             group_id: "{{ vprofile_stack_sg_out.group_id }}"
 
+   - name: Creating Nginx web01
+     amazon.aws.ec2:
+        key_name: vprofile-key
+        instance_type: t2.micro
+        image: "{{ nginx_ami }}"
+        region: "{{ region }}"
+        group_id: "{{ vprofile_stack_sg_out.group_id }}"
+        vpc_subnet_id: "{{ priv_subnet1_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          Name: vprofile-web01
+        instance_tags:
+          Name: vprofile-web01
+          Project: Vprofile
+          Owner: DevOps Team
+     register: web01_out
+
+
+   - name: Creating tomcat app01
+     amazon.aws.ec2:
+        key_name: vprofile-key
+        instance_type: t2.micro
+        image: "{{ tomcat_ami }}"
+        region: "{{ region }}"
+        group_id: "{{ vprofile_stack_sg_out.group_id }}"
+        vpc_subnet_id: "{{ priv_subnet1_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          Name: vprofile-app01
+        instance_tags:
+          Name: vprofile-app01
+          Project: Vprofile
+          Owner: DevOps Team
+     register: app01_out
+
+
+
+   - name: Creating memcache mc01
+     amazon.aws.ec2:
+        key_name: vprofile-key
+        instance_type: t2.micro
+        image: "{{ memcache_ami }}"
+        region: "{{ region }}"
+        group_id: "{{ vprofile_stack_sg_out.group_id }}"
+        vpc_subnet_id: "{{ priv_subnet1_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          Name: vprofile-mc01
+        instance_tags:
+          Name: vprofile-mc01
+          Project: Vprofile
+          Owner: DevOps Team
+     register: mc01_out
+
+
+   - name: Creating RabbitMQ rmq01
+     amazon.aws.ec2:
+        key_name: vprofile-key
+        instance_type: t2.micro
+        image: "{{ rabbitmq_ami }}"
+        region: "{{ region }}"
+        group_id: "{{ vprofile_stack_sg_out.group_id }}"
+        vpc_subnet_id: "{{ priv_subnet1_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          Name: vprofile-rmq01
+        instance_tags:
+          Name: vprofile-rmq01
+          Project: Vprofile
+          Owner: DevOps Team
+     register: rmq01_out
+
+
+   - name: Creating Mysql db01
+     amazon.aws.ec2:
+        key_name: vprofile-key
+        instance_type: t2.micro
+        image: "{{ mysql_ami }}"
+        region: "{{ region }}"
+        group_id: "{{ vprofile_stack_sg_out.group_id }}"
+        vpc_subnet_id: "{{ priv_subnet1_id }}"
+        wait: yes
+        wait_timeout: 500
+        exact_count: 1
+        count_tag:
+          Name: vprofile-db01
+        instance_tags:
+          Name: vprofile-db01
+          Project: Vprofile
+          Owner: DevOps Team
+     register: db01_out
+
+   - debug:
+      var: db01_out
+
+
+
   
 
 
