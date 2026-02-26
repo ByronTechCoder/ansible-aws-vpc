@@ -3,6 +3,9 @@
   hosts: webservgrp
   gather_facts: no
   tasks:
+    - name: Import host IP variables
+      include_vars: group_vars/hostip
+
     - name: Install nginx
       apt:
         name: nginx
@@ -11,14 +14,6 @@
         cache_valid_time: 86400
       tags:
         - package
-
-    - name: Start & ENable Nginx
-      service:
-        name: nginx
-        state: started
-        enabled: yes
-      tags:
-        - svc
 
 
     - name: Disable Nginx default website
@@ -42,10 +37,22 @@
         src: /etc/nginx/sites-available/vproapp
         dest: /etc/nginx/sites-enabled/vproapp
         state: link
-      notify:
-        - Restart Nginx
       tags:
         - conf
+
+    - name: Validate nginx configuration
+      command: nginx -t
+      changed_when: false
+      tags:
+        - conf
+
+    - name: Start & Enable Nginx
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes
+      tags:
+        - svc
 
   handlers:
     - name: Restart Nginx
