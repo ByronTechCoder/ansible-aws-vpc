@@ -103,6 +103,12 @@
         exact_count: 1
         filters:
           "tag:Name": vprofile-web01
+          vpc-id: "{{ vpc_id }}"
+          instance-state-name:
+            - pending
+            - running
+            - stopping
+            - stopped
         tags:
           Name: vprofile-web01
           Project: Vprofile
@@ -124,6 +130,12 @@
         exact_count: 1
         filters:
           "tag:Name": vprofile-app01
+          vpc-id: "{{ vpc_id }}"
+          instance-state-name:
+            - pending
+            - running
+            - stopping
+            - stopped
         tags:
           Name: vprofile-app01
           Project: Vprofile
@@ -145,6 +157,12 @@
         exact_count: 1
         filters:
           "tag:Name": vprofile-mc01
+          vpc-id: "{{ vpc_id }}"
+          instance-state-name:
+            - pending
+            - running
+            - stopping
+            - stopped
         tags:
           Name: vprofile-mc01
           Project: Vprofile
@@ -166,6 +184,12 @@
         exact_count: 1
         filters:
           "tag:Name": vprofile-rmq01
+          vpc-id: "{{ vpc_id }}"
+          instance-state-name:
+            - pending
+            - running
+            - stopping
+            - stopped
         tags:
           Name: vprofile-rmq01
           Project: Vprofile
@@ -187,6 +211,12 @@
         exact_count: 1
         filters:
           "tag:Name": vprofile-db01
+          vpc-id: "{{ vpc_id }}"
+          instance-state-name:
+            - pending
+            - running
+            - stopping
+            - stopped
         tags:
           Name: vprofile-db01
           Project: Vprofile
