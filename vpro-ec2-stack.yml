@@ -227,7 +227,7 @@
         state: touch
       loop:
         - provision-stack/group_vars/hostip
-        - provision-stack/inventory-repo
+        - provision-stack/inventory-vpro
 
     - name: Insert/Update host IPs in provision-stack/group_vars/hostip
       blockinfile:
