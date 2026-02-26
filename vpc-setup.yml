@@ -155,7 +155,8 @@
         - pub_rt_out.route_table.id
         - nat_gw_out.nat_gateway_id
   
-    - set_fact:
+    - name: Set VPC output facts
+      set_fact:
         vpc_id: "{{ vpcout.vpc.id }}"
         pub_subnet1_id: "{{ pubsub1_out.subnet.id }}"
         pub_subnet2_id: "{{ pubsub2_out.subnet.id }}"
@@ -166,9 +167,9 @@
         igw_id: "{{ igw_out.gateway_id }}"
         pub_rt_id: "{{ pub_rt_out.route_table.id }}"
         nat_gw_id: "{{ nat_gw_out.nat_gateway_id }}"
-        chacheable: yes
-
         cacheable: yes
+
+    - name: Create variables file for vpc output yaml
       copy:
         dest: "vars/vpc_output.yml"
         content: |
