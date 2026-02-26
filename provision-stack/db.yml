@@ -2,58 +2,47 @@
 - name: Setup Mysql with accounts db and remote login
   hosts: dbservgrp
   gather_facts: no
+  vars:
+    ansible_python_interpreter: auto_silent
   tasks:
     - name: Installing Mysql Service and dependencies
-      package:
-        name: "{{item}}"
-        state: present
-        update_cache: yes
-        cache_valid_time: 86400
-      loop:
-        - mysql-server
-        - mysql-client
-        - python-mysqldb
-        - python3-mysqldb
-        - libmysqlclient-dev
-      ignore_errors: yes
+      raw: |
+        export DEBIAN_FRONTEND=noninteractive
+        apt-get update -y
+        apt-get install -y mysql-server mysql-client python-mysqldb python3-mysqldb libmysqlclient-dev
+      register: mysql_pkg_install
+      changed_when: "'0 upgraded, 0 newly installed' not in mysql_pkg_install.stdout"
+      failed_when: false
       tags:
         - package
 
     - name: Start and enable mysql service
-      service:
-        name: mysql
-        state: started
-        enabled: yes
+      raw: systemctl enable --now mysql
       tags:
         - svc
 
     - name: creating mysql user
-      mysql_user:
-        name: "{{dbuser}}"
-        password: "{{dbpass}}"
-        priv: '*.*:ALL'
-        host: '%'
-        state: present
-
+      raw: |
+        mysql -uroot <<'SQL'
+        CREATE USER IF NOT EXISTS '{{ dbuser }}'@'%' IDENTIFIED BY '{{ dbpass }}';
+        GRANT ALL PRIVILEGES ON *.* TO '{{ dbuser }}'@'%' WITH GRANT OPTION;
+        FLUSH PRIVILEGES;
+        SQL
+      changed_when: false
 
     - name: Creating accounts DB
-      mysql_db:
-        name: "{{dbname}}"
-        state: present
+      raw: mysql -uroot -e "CREATE DATABASE IF NOT EXISTS \`{{ dbname }}\`;"
+      changed_when: false
 
     - name: Enable remote login to mysql svc
-      lineinfile:
-        path: /etc/mysql/mysql.conf.d/mysqld.cnf
-        regexp: '^bind-address'
-        line: 'bind-address = 0.0.0.0'
-        backup: yes
-      notify:
-        - Restart mysql
+      raw: |
+        grep -q '^bind-address = 0.0.0.0' /etc/mysql/mysql.conf.d/mysqld.cnf || \
+        (sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf || \
+        echo 'bind-address = 0.0.0.0' >> /etc/mysql/mysql.conf.d/mysqld.cnf)
+      register: mysql_bind_addr
+      changed_when: mysql_bind_addr.rc == 0 and 'bind-address = 0.0.0.0' not in mysql_bind_addr.stdout
       tags:
         - conf
 
-  handlers:
     - name: Restart mysql
-      service:
-        name: mysql
-        state: restarted
+      raw: systemctl restart mysql
