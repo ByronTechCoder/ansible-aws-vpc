@@ -25,6 +25,17 @@
         mode: '0600'
       when: keypair_out.changed
 
+    - name: Check local login key presence
+      stat:
+        path: "./loginkey_vpro.pem"
+      register: loginkey_vpro_file
+
+    - name: Ensure login key is available locally
+      assert:
+        that:
+          - loginkey_vpro_file.stat.exists
+        fail_msg: "loginkey_vpro.pem not found. AWS returns private key only when key pair is newly created. Keep the existing local key file, or delete/recreate key pair 'vprofile-key' to generate a new private key."
+
     - name: Create Security Group for Load Balancer
       amazon.aws.ec2_security_group:
         name: vprofile-lb-sg
