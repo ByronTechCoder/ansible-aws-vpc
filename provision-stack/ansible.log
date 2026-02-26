@@ -1,0 +1,62 @@
+2026-02-26 15:31:21,416 p=2245 u=ubuntu n=ansible WARNING| [WARNING]: Unable to parse /home/ubuntu/ansible-aws-vpc/provision-stack/inventory-vpro as an inventory source
+
+2026-02-26 15:31:21,416 p=2245 u=ubuntu n=ansible WARNING| [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2026-02-26 15:31:21,421 p=2245 u=ubuntu n=ansible WARNING| [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2026-02-26 15:31:21,617 p=2245 u=ubuntu n=ansible INFO| PLAY [Generate artifact, copy artifact & sql file to files directory] ****************************************************************************************************************************
+2026-02-26 15:31:21,626 p=2245 u=ubuntu n=ansible INFO| TASK [Gathering Facts] ***************************************************************************************************************************************************************************
+2026-02-26 15:31:22,963 p=2245 u=ubuntu n=ansible INFO| ok: [localhost]
+2026-02-26 15:31:22,968 p=2245 u=ubuntu n=ansible INFO| TASK [Install  jdk, maven, git] ******************************************************************************************************************************************************************
+2026-02-26 15:31:37,170 p=2245 u=ubuntu n=ansible INFO| ok: [localhost] => (item=git)
+2026-02-26 15:32:13,704 p=2245 u=ubuntu n=ansible INFO| changed: [localhost] => (item=openjdk-8-jdk)
+2026-02-26 15:32:27,764 p=2245 u=ubuntu n=ansible INFO| changed: [localhost] => (item=maven)
+2026-02-26 15:32:27,776 p=2245 u=ubuntu n=ansible INFO| TASK [Clone source code from github] *************************************************************************************************************************************************************
+2026-02-26 15:32:32,421 p=2245 u=ubuntu n=ansible INFO| changed: [localhost]
+2026-02-26 15:32:32,430 p=2245 u=ubuntu n=ansible INFO| TASK [mvn install command to build artifact] *****************************************************************************************************************************************************
+2026-02-26 15:33:30,799 p=2245 u=ubuntu n=ansible INFO| changed: [localhost]
+2026-02-26 15:33:30,820 p=2245 u=ubuntu n=ansible INFO| TASK [Copy artifacts to files directory] *********************************************************************************************************************************************************
+2026-02-26 15:33:32,252 p=2245 u=ubuntu n=ansible ERROR| [ERROR]: Task failed: Module failed: Destination directory files does not exist
+Origin: /home/ubuntu/ansible-aws-vpc/provision-stack/build.yml:33:7
+
+31
+32
+33     - name: Copy artifacts to files directory
+         ^ column 7
+
+
+2026-02-26 15:33:32,253 p=2245 u=ubuntu n=ansible INFO| failed: [localhost] (item=/home/ubuntu/ansible-aws-vpc/provision-stack/Vprofile-repo/target/vprofile-v2.war) => {"ansible_loop_var": "item", "changed": false, "checksum": "9c8c902c683003c8f37a48fdeacc136a7c9c9eff", "item": "/home/ubuntu/ansible-aws-vpc/provision-stack/Vprofile-repo/target/vprofile-v2.war", "msg": "Destination directory files does not exist"}
+2026-02-26 15:33:32,256 p=2245 u=ubuntu n=ansible INFO| PLAY RECAP ***************************************************************************************************************************************************************************************
+2026-02-26 15:33:32,257 p=2245 u=ubuntu n=ansible INFO| localhost                  : ok=4    changed=3    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2026-02-26 15:39:16,002 p=5668 u=ubuntu n=ansible WARNING| [WARNING]: Unable to parse /home/ubuntu/ansible-aws-vpc/provision-stack/inventory-vpro as an inventory source
+
+2026-02-26 15:39:16,002 p=5668 u=ubuntu n=ansible WARNING| [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2026-02-26 15:39:16,014 p=5668 u=ubuntu n=ansible WARNING| [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2026-02-26 15:39:16,470 p=5668 u=ubuntu n=ansible INFO| PLAY [Generate artifact, copy artifact & sql file to files directory] ****************************************************************************************************************************
+2026-02-26 15:39:16,496 p=5668 u=ubuntu n=ansible INFO| TASK [Gathering Facts] ***************************************************************************************************************************************************************************
+2026-02-26 15:39:17,890 p=5668 u=ubuntu n=ansible INFO| ok: [localhost]
+2026-02-26 15:39:17,895 p=5668 u=ubuntu n=ansible INFO| TASK [Install  jdk, maven, git] ******************************************************************************************************************************************************************
+2026-02-26 15:39:21,092 p=5668 u=ubuntu n=ansible INFO| ok: [localhost] => (item=git)
+2026-02-26 15:39:23,708 p=5668 u=ubuntu n=ansible INFO| ok: [localhost] => (item=openjdk-8-jdk)
+2026-02-26 15:39:26,371 p=5668 u=ubuntu n=ansible INFO| ok: [localhost] => (item=maven)
+2026-02-26 15:39:26,380 p=5668 u=ubuntu n=ansible INFO| TASK [Clone source code from github] *************************************************************************************************************************************************************
+2026-02-26 15:39:27,453 p=5668 u=ubuntu n=ansible INFO| ok: [localhost]
+2026-02-26 15:39:27,459 p=5668 u=ubuntu n=ansible INFO| TASK [mvn install command to build artifact] *****************************************************************************************************************************************************
+2026-02-26 15:39:27,473 p=5668 u=ubuntu n=ansible INFO| skipping: [localhost]
+2026-02-26 15:39:27,478 p=5668 u=ubuntu n=ansible INFO| TASK [Copy artifacts to files directory] *********************************************************************************************************************************************************
+2026-02-26 15:39:28,674 p=5668 u=ubuntu n=ansible INFO| changed: [localhost] => (item=/home/ubuntu/ansible-aws-vpc/provision-stack/Vprofile-repo/target/vprofile-v2.war)
+2026-02-26 15:39:28,684 p=5668 u=ubuntu n=ansible INFO| TASK [Copy SQL file to files directory] **********************************************************************************************************************************************************
+2026-02-26 15:39:29,310 p=5668 u=ubuntu n=ansible INFO| changed: [localhost]
+2026-02-26 15:39:29,311 p=5668 u=ubuntu n=ansible INFO| PLAY RECAP ***************************************************************************************************************************************************************************************
+2026-02-26 15:39:29,311 p=5668 u=ubuntu n=ansible INFO| localhost                  : ok=5    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2026-02-26 15:43:34,558 p=6927 u=ubuntu n=ansible WARNING| [WARNING]: Unable to parse /home/ubuntu/ansible-aws-vpc/provision-stack/inventory-vpro as an inventory source
+
+2026-02-26 15:43:34,559 p=6927 u=ubuntu n=ansible WARNING| [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2026-02-26 15:43:34,563 p=6927 u=ubuntu n=ansible WARNING| [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2026-02-26 15:43:34,745 p=6927 u=ubuntu n=ansible INFO| PLAY [Set host to ip mapping in /etc/hosts file of all the instances in the stack] ***************************************************************************************************************
+2026-02-26 15:43:34,746 p=6927 u=ubuntu n=ansible INFO| skipping: no hosts matched
+2026-02-26 15:43:34,746 p=6927 u=ubuntu n=ansible INFO| PLAY RECAP ***************************************************************************************************************************************************************************************
